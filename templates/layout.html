@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{{ site_owner }}{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+    <!-- Font Awesome (Eğer butonlarda ikon kullanıyorsanız) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+    {% block head_extra %}{% endblock %}
+</head>
+<body>
+    <header>
+        <nav class="container">
+            <a href="{{ url_for('index') }}" class="logo">{{ site_owner }}</a>
+            <ul>
+                {% for link in nav_links %}
+                <li><a href="{{ url_for(link.url) }}" class="{{ 'active' if request.endpoint == link.url else '' }}">{{ link.name }}</a></li>
+                {% endfor %}
+            </ul>
+        </nav>
+    </header>
+
+    <main class="container">
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>© {{ current_year }} {{ site_owner }}. Tüm hakları saklıdır.</p>
+            <p>
+                <a href="{{ github_url }}" target="_blank">GitHub</a> |
+                <a href="{{ linkedin_url }}" target="_blank">LinkedIn</a> |
+                <a href="mailto:{{ email_address }}">E-posta</a>
+            </p>
+        </div>
+    </footer>
+
+    <!-- İsteğe bağlı JS dosyaları buraya eklenebilir -->
+    {% block scripts_extra %}{% endblock %}
+</body>
+</html>

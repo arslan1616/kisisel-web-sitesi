@@ -1,0 +1,99 @@
+{% extends "layout.html" %}
+
+{% block title %}{{ page_title }} - {{ super() }}{% endblock %}
+
+{% block head_extra %}
+<style>
+    .projects-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Responsive grid */
+        gap: 20px;
+        margin-top: 20px;
+    }
+    .project-card {
+        background-color: #fff;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        padding: 20px;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between; /* İçeriği dikeyde yay */
+        transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+    }
+    .project-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+    }
+    .project-card img.project-image {
+        width: 100%;
+        height: 180px; /* Sabit yükseklik */
+        object-fit: cover; /* Resmi kırp veya sığdır */
+        border-radius: 5px;
+        margin-bottom: 15px;
+        background-color: #eee; /* Resim yüklenene kadar veya yoksa */
+    }
+    .project-card h3 {
+        margin-top: 0;
+        color: #333;
+        font-size: 1.4em;
+    }
+    .project-card p.description {
+        font-size: 0.95em;
+        color: #555;
+        flex-grow: 1; /* Açıklamanın kalan alanı doldurmasını sağla */
+        margin-bottom: 15px;
+    }
+    .project-card .tags {
+        margin-bottom: 15px;
+    }
+    .project-card .tag {
+        display: inline-block;
+        background-color: #e7e7e7;
+        color: #333;
+        padding: 4px 8px;
+        border-radius: 3px;
+        font-size: 0.8em;
+        margin-right: 5px;
+        margin-bottom: 5px;
+    }
+    .project-card .project-link {
+        align-self: flex-start; /* Butonu sola yasla */
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<section>
+    <h1>{{ page_title }}</h1>
+    <p>Burada GitHub'da yer alan veya üzerinde çalıştığım bazı projeleri bulabilirsiniz.</p>
+
+    {% if github_projects %}
+    <div class="projects-grid">
+        {% for project in github_projects %}
+        <div class="project-card">
+            {% if project.image %}
+            <img src="{{ project.image }}" alt="{{ project.name }} Proje Görseli" class="project-image">
+            {% else %}
+            <img src="{{ url_for('static', filename='images/project_placeholder.png') }}" alt="Proje Görseli Yok" class="project-image">
+            {% endif %}
+            <div>
+                <h3>{{ project.name }}</h3>
+                <p class="description">{{ project.description }}</p>
+                {% if project.tags %}
+                <div class="tags">
+                    {% for tag in project.tags %}
+                    <span class="tag">{{ tag }}</span>
+                    {% endfor %}
+                </div>
+                {% endif %}
+            </div>
+            <a href="{{ project.url }}" class="btn project-link" target="_blank">GitHub'da Görüntüle</a>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <p>Henüz gösterilecek proje bulunmamaktadır.</p>
+    {% endif %}
+</section>
+{% endblock %}

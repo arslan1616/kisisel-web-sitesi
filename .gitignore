@@ -1,0 +1,13 @@
+# Python
+venv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+instance/
+
+# IDE / OS specific
+.idea/
+.vscode/
+.DS_Store
+*.swp

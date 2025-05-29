@@ -1,0 +1,51 @@
+{% extends "layout.html" %}
+
+{% block title %}{{ page_title }} - {{ super() }}{% endblock %}
+
+{% block head_extra %}
+<!-- Hakkımda sayfasına özel stiller buraya gelebilir, ancak çoğu style.css'e taşındı -->
+{#
+<style>
+    .about-header {
+        /* ... (style.css'e taşındı) ... */
+    }
+    .about-profile-image {
+        /* ... (style.css'e taşındı) ... */
+    }
+    .about-intro {
+        /* ... (style.css'e taşındı) ... */
+    }
+    /* @media stilleri de style.css'te */
+</style>
+#}
+{% endblock %}
+
+{% block content %}
+    <section>
+        <div class="about-header">
+            <img src="{{ url_for('static', filename='images/profil_foto.jpg') }}" alt="{{ site_owner }} Profil Fotoğrafı" class="about-profile-image">
+            <div class="about-intro">
+                <h1>{{ page_title }}</h1>
+                <p>Ben İbrahim Arslan, 22 yaşındayım.</p>
+                <p>Tutkulu ve genç bir yazılım geliştiricisi olarak, kaliteli ve verimli çözümler üretmeye odaklanıyorum. Sürekli öğrenmeye ve kendimi geliştirmeye açık biriyim.</p>
+            </div>
+        </div>
+
+        <h2>Eğitim Geçmişi</h2>
+        <ul>
+            {% for edu in education %}
+            <li><strong>{{ edu.institution }}</strong> - {{ edu.degree }} ({{ edu.year }})</li>
+            {% endfor %}
+        </ul>
+
+        <h2>Teknolojiler ve Diller</h2>
+        <ul class="tech-stack">
+            {% for tech in tech_stack %}
+            <li>{{ tech }}</li>
+            {% endfor %}
+        </ul>
+
+        <h2>Kariyer Hedefi</h2>
+        <p>Sürekli değişen ve gelişen yazılım dünyasında, en güncel teknolojileri ve en iyi pratikleri öğrenmeye adanmış bir geliştirici olarak kariyerimi şekillendirmek istiyorum. Farklı projelerde ve teknolojilerde deneyim kazanarak problem çözme yeteneğimi ve analitik düşünme becerilerimi en üst seviyeye çıkarmayı, böylece her zaman daha iyi ve daha verimli çözümler üretebilmeyi hedefliyorum.</p>
+    </section>
+{% endblock %}

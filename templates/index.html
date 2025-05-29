@@ -1,0 +1,49 @@
+{% extends "layout.html" %}
+
+{% block title %}Anasayfa - {{ super() }}{% endblock %}
+
+{% block head_extra %}
+<!-- Anasayfa'ya özel stiller buraya gelebilir, ancak çoğu style.css'e taşındı -->
+<!-- Gerekirse aşağıdaki <style> bloğunu aktif edebilirsiniz, ama şimdilik çoğu stil global CSS'te -->
+{#
+<style>
+    .hero {
+        /* ... (Anasayfaya özel hero stilleri style.css'e taşındı) ... */
+    }
+    .profile-image-container {
+        /* ... (style.css'e taşındı) ... */
+    }
+    .profile-image {
+        /* ... (style.css'e taşındı) ... */
+    }
+    .hero-content {
+        /* ... (style.css'e taşındı) ... */
+    }
+    /* Orta ve büyük ekranlar için @media stilleri de style.css'te */
+</style>
+#}
+{% endblock %}
+
+{% block content %}
+    <section class="hero">
+        <div class="profile-image-container">
+            <img src="{{ url_for('static', filename='images/profil_foto.jpg') }}" alt="{{ site_owner }} Profil Fotoğrafı" class="profile-image">
+        </div>
+        <div class="hero-content">
+            <h1>Merhaba, ben {{ site_owner }}</h1>
+            <p class="lead">Yazılıma meraklı bir geliştiriciyim. Bu sitede teknik yetkinliklerimi, özgeçmişimi ve projelerimi bulabilirsiniz.</p>
+            <p>İlgi Alanlarım: Veri Bilimi, Machine Learning, Yapay Zeka, Web ve Mobil Geliştirme.</p>
+        </div>
+    </section>
+    <hr>
+    <section class="quick-access">
+        <h2>Hızlı Erişim</h2>
+        <div class="quick-links">
+            <a href="{{ url_for('about') }}" class="btn"><i class="fas fa-user"></i> Hakkımda</a>
+            <a href="{{ url_for('cv_page') }}" class="btn"><i class="fas fa-file-alt"></i> CV Görüntüle/İndir</a>
+            <a href="{{ github_url }}" class="btn" target="_blank"><i class="fab fa-github"></i> GitHub Profilim</a>
+            <a href="{{ linkedin_url }}" class="btn" target="_blank"><i class="fab fa-linkedin"></i> LinkedIn Profilim</a>
+            <a href="{{ url_for('contact') }}" class="btn"><i class="fas fa-envelope"></i> İletişim</a>
+        </div>
+    </section>
+{% endblock %}
